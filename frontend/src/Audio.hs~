@@ -1,0 +1,31 @@
+
+
+module Audio where
+
+
+import Reflex.Dom.Core
+import Language.Javascript.JSaddle 
+
+--jsObj ^. js ("x" ::
+
+
+type HTMLRef = JSVal
+type HTMLEventType = T.Text
+type HTMLEvent = JSVal
+addHTMLEventListener ::
+  ( TriggerEvent t m
+  , Prerender t m
+  )
+  => HTMLRef
+  -> HTMLEventType
+  -> (HTMLEvent -> JSM a)
+  -> m (Event t a)
+addHTMLEventListener htmlRef htmlEventType actn = do
+  (event, trigger) <- newTriggerEvent
+  prerender_ blank $ void $ liftJSM $ htmlRef ^. js2 ("addEventListener" :: T.Text) htmlEventType
+    (fun $ \_ _ [e] -> do
+        x <- actn e
+        (liftIO $ trigger x)
+        pure ()
+    )   
+  pure event

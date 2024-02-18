@@ -1,0 +1,66 @@
+
+
+module Audio where
+
+
+
+
+import Reflex.Dom.Core
+import Language.Javascript.JSaddle
+
+import Control.Monad.IO.Class (liftIO)
+import Control.Lens 
+import Control.Monad (void)
+import Data.Text as T
+
+import qualified GHCJS.DOM.Types as GHCJS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+type Trigger a = (a -> IO ())
+type HTMLRef = JSVal
+type HTMLEventType = T.Text
+type HTMLEvent = JSVal
+
+
